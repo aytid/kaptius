@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calulator</title>
+    <link rel="stylesheet" href="../../css/bootstrap.css">
+    <style>
+        body {
+            background-color: wheat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form {
+            margin-top: 70px;
+            border-radius: 20px;
+            padding: 20px;
+            background-color: rgba(251, 192, 83, 0.66);
+            box-shadow: 5px 5px 10px;
+        }
+        .btn-group{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .btn-secondary{
+            border:1px solid black;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form">
+        <h1>Calculator</h1>
+        <input class="form-control" type="text" id="scr" name="scr" value=""> <br>        
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary" onclick="scr.value+='7'">7</button>
+            <button type="button" class="btn btn-secondary" onclick="scr.value+='8'">8</button>
+            <button type="button" class="btn btn-secondary" onclick="scr.value+='9'">9</button>
+            <button type="button" class="btn btn-secondary" onclick="scr.value+='*'">*</button>
+          </div>
+
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary" onclick="scr.value+='4'">4</button>
+            <button type="button" class="btn btn-secondary" onclick="scr.value+='5'">5</button>
+            <button type="button" class="btn btn-secondary" onclick="scr.value+='6'">6</button>
+            <button type="button" class="btn btn-secondary" onclick="scr.value+='-'">-</button>
+          </div>
+        
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary" onclick="scr.value+='1'">1</button>
+            <button type="button" class="btn btn-secondary" onclick="scr.value+='2'">2</button>
+            <button type="button" class="btn btn-secondary" onclick="scr.value+='3'">3</button>
+            <button type="button" class="btn btn-secondary" onclick="scr.value+='+'">+</button>
+          </div>
+
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary" onclick="scr.value+='.'">.</button>
+            <button type="button" class="btn btn-secondary" onclick="scr.value+='0'">0</button>
+            <button type="button" class="btn btn-secondary" onclick="scr.value+='%'">%</button>
+            <button type="button" class="btn btn-secondary" onclick="scr.value+='/'">/</button>
+          </div>
+
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary"  onclick="scr.value=''">Clear</button>
+            <button type="button" class="btn btn-secondary" onclick="scr.value=eval(scr.value)">=</button>
+          </div>
+          
+        </form>
+    </div>
+</body>
+</html>
