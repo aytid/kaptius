@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calulator</title>
+    <title>Calculator</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
         body {
@@ -20,13 +20,15 @@
             background-color: rgba(251, 192, 83, 0.66);
             box-shadow: 5px 5px 10px;
         }
+
         .btn-group{
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
         }
+
         .btn-secondary{
-            border:1px solid black;
+            border: 1px solid black;
             margin-top: 5px;
         }
     </style>
@@ -36,39 +38,64 @@
         <h1>Calculator</h1>
         <input class="form-control" type="text" id="scr" name="scr" value=""> <br>        
         <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary" onclick="scr.value+='7'">7</button>
-            <button type="button" class="btn btn-secondary" onclick="scr.value+='8'">8</button>
-            <button type="button" class="btn btn-secondary" onclick="scr.value+='9'">9</button>
-            <button type="button" class="btn btn-secondary" onclick="scr.value+='*'">*</button>
-          </div>
+            <button type="button" class="btn btn-secondary" onclick="next('7')">7</button>
+            <button type="button" class="btn btn-secondary" onclick="next('8')">8</button>
+            <button type="button" class="btn btn-secondary" onclick="next('9')">9</button>
+            <button type="button" class="btn btn-secondary" onclick="next('*')">*</button>
+        </div>
 
-          <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary" onclick="scr.value+='4'">4</button>
-            <button type="button" class="btn btn-secondary" onclick="scr.value+='5'">5</button>
-            <button type="button" class="btn btn-secondary" onclick="scr.value+='6'">6</button>
-            <button type="button" class="btn btn-secondary" onclick="scr.value+='-'">-</button>
-          </div>
-        
-          <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary" onclick="scr.value+='1'">1</button>
-            <button type="button" class="btn btn-secondary" onclick="scr.value+='2'">2</button>
-            <button type="button" class="btn btn-secondary" onclick="scr.value+='3'">3</button>
-            <button type="button" class="btn btn-secondary" onclick="scr.value+='+'">+</button>
-          </div>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary" onclick="next('4')">4</button>
+            <button type="button" class="btn btn-secondary" onclick="next('5')">5</button>
+            <button type="button" class="btn btn-secondary" onclick="next('6')">6</button>
+            <button type="button" class="btn btn-secondary" onclick="next('-')">-</button>
+        </div>
+    
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary" onclick="next('1')">1</button>
+            <button type="button" class="btn btn-secondary" onclick="next('2')">2</button>
+            <button type="button" class="btn btn-secondary" onclick="next('3')">3</button>
+            <button type="button" class="btn btn-secondary" onclick="next('+')">+</button>
+        </div>
 
-          <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary" onclick="scr.value+='.'">.</button>
-            <button type="button" class="btn btn-secondary" onclick="scr.value+='0'">0</button>
-            <button type="button" class="btn btn-secondary" onclick="scr.value+='%'">%</button>
-            <button type="button" class="btn btn-secondary" onclick="scr.value+='/'">/</button>
-          </div>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary" onclick="next('.')">.</button>
+            <button type="button" class="btn btn-secondary" onclick="next('0')">0</button>
+            <button type="button" class="btn btn-secondary" onclick="next('%')">%</button>
+            <button type="button" class="btn btn-secondary" onclick="next('/')">/</button>
+        </div>
 
-          <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary"  onclick="scr.value=''">Clear</button>
-            <button type="button" class="btn btn-secondary" onclick="scr.value=eval(scr.value)">=</button>
-          </div>
-          
-        </form>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary" onclick="clr()">Clear</button>
+            <button type="button" class="btn btn-secondary" onclick="del()">Delete</button>
+            <button type="button" class="btn btn-secondary" onclick="calculate()">=</button>
+        </div>
     </div>
+
+    <script>
+        function next(value) {
+            document.getElementById('scr').value += value;
+        }
+
+        function clr() {
+            document.getElementById('scr').value = '';
+        }
+
+        function del() {
+            document.getElementById('scr').value = document.getElementById('scr').value.slice(0, -1);
+        }
+
+        function calculate() {
+            try {
+                let result = eval(document.getElementById('scr').value);
+                //console.log(result);
+                document.getElementById('scr').value = result;
+            }
+            catch (error) {
+                document.getElementById('scr').value = 'Invalid';
+            }
+        }
+
+    </script>
 </body>
 </html>
