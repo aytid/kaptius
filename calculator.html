@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../css/bootstrap.css">
     <style>
         body {
             background-color: wheat;
@@ -14,6 +14,7 @@
         }
 
         .form {
+            /*width: 100%;*/
             margin-top: 70px;
             border-radius: 20px;
             padding: 20px;
@@ -84,18 +85,26 @@
         function del() {
             document.getElementById('scr').value = document.getElementById('scr').value.slice(0, -1);
         }
-
         function calculate() {
-            try {
-                let result = eval(document.getElementById('scr').value);
+            try{
+                var result = document.getElementById('scr').value;
                 //console.log(result);
+                var reg1=/[/%]0/;
+                if (reg1.test(result)) {
+                    throw new Error("Division with 0 not allowed");
+                }
+                var reg2=/\d*[\+*\-*\**/*%*\.*][\+*\-*\**/*%*\.*]\d*/;
+                if (reg2.test(result)) {
+                    throw new Error("Invalid format of operators");
+                }
+
+                result=eval(result);
                 document.getElementById('scr').value = result;
             }
-            catch (error) {
-                document.getElementById('scr').value = 'Invalid';
+            catch(error){
+                document.getElementById('scr').value = error.message;
             }
         }
-
     </script>
 </body>
 </html>
