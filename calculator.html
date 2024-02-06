@@ -93,7 +93,7 @@
                 if (reg1.test(result)) {
                     throw new Error("Division with 0 not allowed");
                 }
-                var reg2=/\d*[\+*\-*\**/*%*\.*][\+*\-*\**/*%*\.*]\d*/;
+                var reg2=/\d*[\+\-\*/%\.][\+\-\*/%\.]+\d*/;
                 if (reg2.test(result)) {
                     throw new Error("Invalid format of operators");
                 }
@@ -105,6 +105,19 @@
                 document.getElementById('scr').value = error.message;
             }
         }
+
+        document.addEventListener('keydown', function (event) {
+            var keyPressed = event.key;
+            if(/[\d\+\-\*/%.]/.test(keyPressed)) {
+                next(keyPressed);
+            }
+            else if(keyPressed === 'Enter') {
+                calculate();
+            }
+            else if(keyPressed === 'Backspace') {
+                del();
+            }
+            });
     </script>
 </body>
 </html>
