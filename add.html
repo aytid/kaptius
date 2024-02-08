@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eBooks</title>
+    <style>
+        body {
+            background-image: url("wp.jpg");
+            background-repeat: repeat-y;
+            background-size: cover;
+        }
+
+        body h1 {
+            color: white;
+            font-size: 50px;
+            font: bold;
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .main {
+            margin-top: 30px;
+            height: 500px;
+            width: auto;
+            background-color: transparent;
+            box-shadow: 5px 5px 30px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .main h1 {
+            color: white;
+            font-size: 25px;
+            font: bold;
+            margin-left: 20px;
+            margin-top: 10px;
+            background-color: rgba(47, 46, 46, 0.88);
+        }
+
+        .form-check h2 {
+            color: white;
+            font-size: 20px;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <h1>Adding a book</h1>
+    <div class="main">
+        <form id="bookForm" onsubmit="return submitForm()">
+            <div class="form-group">
+                <h1>Enter Title</h1>
+                <input type="text" class="form-control" id="title" placeholder="Book name" title="Book name should only have alphabets" pattern="[a-zA-Z]+" required>
+            </div>
+
+            <div class="form-group">
+                <h1>Enter Author name</h1>
+                <input type="text" class="form-control" id="author" placeholder="Author name" title="Author name should only have alphabets" pattern="[a-zA-Z]+" required>
+            </div>
+
+            <div class="form-group">
+                <h1>Enter ISBN</h1>
+                <input type="text" class="form-control" id="isbn" title="ISBNumber should be 10 to 13 digits long" pattern="[0-9]{10,13}" required>
+            </div> <br>
+
+            <select class="form-select" aria-label="Default select example" id="genre" required>
+                <option disabled selected>Select genre</option>
+                <option value="Science fiction">Science fiction</option>
+                <option value="Mystery">Educational</option>
+                <option value="Mystery">Mystery</option>
+                <option value="Historical">Historical</option>
+                <option value="Romance">Romance</option>
+            </select> <br>
+
+            <h1>Select availability</h1>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="availability" id="flexRadioDefault1" value="-1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                    <h2>Not Available</h2>
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="availability" id="flexRadioDefault2" value="1" checked>
+                <label class="form-check-label" for="flexRadioDefault2">
+                    <h2>Available</h2>
+                </label>
+            </div>
+            <button type="submit" class="btn btn-outline-success">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        
+        function Book(title, author, isbn, genre, availability) {
+            this.title = title;
+            this.author = author;   
+            this.isbn = isbn;
+            this.genre = genre;
+            this.availability = availability;
+            this.checkOut = function () {
+                if (this.availability === '1') {
+                    this.availability = '-1';
+                    return true;
+                } else{
+                    return false;
+                }
+            };
+            this.returnBook = function () {
+                if(this.availability === '-1') {
+                    this.availability = '1';
+                    return true;
+                } else{
+                    return false; 
+                }
+            };
+            this.displayDetails = function () {
+                console.log(`Title: ${this.title}`);
+                console.log(`Author: ${this.author}`);
+                console.log(`ISBN: ${this.isbn}`);
+                console.log(`Genre: ${this.genre}`);
+                console.log(`Availability: ${this.availability === '1' ? 'Available' : 'Not Available'}`);
+            };
+        }
+
+        function submitForm() {
+            const title = document.getElementById("title").value;
+            const author = document.getElementById("author").value;
+            const isbn = document.getElementById("isbn").value;
+            const genre = document.getElementById("genre").value;
+            const availability = document.querySelector('input[name="availability"]:checked').value;
+    
+            const book = new Book(title, author, isbn, genre, availability);
+    
+            const catalog = JSON.parse(localStorage.getItem("catalog")) || [];
+    
+            let isDuplicate = false;
+    
+            catalog.forEach(function (i) {
+                if (i.isbn === isbn) {
+                    alert("ID already exists!");
+                    isDuplicate = true;
+                }
+                if (i.title === title) {
+                    alert("Book name already exists!");
+                    isDuplicate = true;
+                }
+            });
+    
+            if (!isDuplicate) {                
+                catalog.push(book);
+                localStorage.setItem("catalog", JSON.stringify(catalog));
+                alert("Book added successfully!");
+                window.location.href = "lib.html";
+            }
+    
+            return false;
+        }
+    </script>
+</body>
+</html>
