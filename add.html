@@ -94,67 +94,66 @@
     <script>
         
         function Book(title, author, isbn, genre, availability) {
-            this.title = title;
-            this.author = author;   
-            this.isbn = isbn;
-            this.genre = genre;
-            this.availability = availability;
-            this.checkOut = function () {
-                if (this.availability === '1') {
-                    this.availability = '-1';
+            this.title=title;
+            this.author=author;   
+            this.isbn=isbn;
+            this.genre=genre;
+            this.availability=availability;
+            this.checkOut=function(){
+                if (this.availability==='1'){
+                    this.availability='-1';
                     return true;
                 } else{
                     return false;
                 }
             };
-            this.returnBook = function () {
-                if(this.availability === '-1') {
-                    this.availability = '1';
+            this.returnBook=function(){
+                if(this.availability==='-1'){
+                    this.availability='1';
                     return true;
                 } else{
                     return false; 
                 }
             };
-            this.displayDetails = function () {
+            this.displayDetails=function(){
                 console.log(`Title: ${this.title}`);
                 console.log(`Author: ${this.author}`);
                 console.log(`ISBN: ${this.isbn}`);
                 console.log(`Genre: ${this.genre}`);
-                console.log(`Availability: ${this.availability === '1' ? 'Available' : 'Not Available'}`);
+                console.log(`Availability: ${this.availability==='1'?'Available':'Not Available'}`);
             };
         }
 
         function submitForm() {
-            const title = document.getElementById("title").value;
-            const author = document.getElementById("author").value;
-            const isbn = document.getElementById("isbn").value;
-            const genre = document.getElementById("genre").value;
-            const availability = document.querySelector('input[name="availability"]:checked').value;
+            const title=document.getElementById("title").value;
+            const author=document.getElementById("author").value;
+            const isbn=document.getElementById("isbn").value;
+            const genre=document.getElementById("genre").value;
+            const availability=document.querySelector('input[name="availability"]:checked').value;
     
-            const book = new Book(title, author, isbn, genre, availability);
+            const book=new Book(title,author,isbn,genre,availability);
     
-            const catalog = JSON.parse(localStorage.getItem("catalog")) || [];
+            const catalog=JSON.parse(localStorage.getItem("catalog")) || [];
     
-            let isDuplicate = false;
+            let copy=false;
     
-            catalog.forEach(function (i) {
-                if (i.isbn === isbn) {
+            catalog.forEach(function(i){
+                if(i.isbn===isbn) {
                     alert("ID already exists!");
-                    isDuplicate = true;
+                    copy=true;
                 }
-                if (i.title === title) {
+                if(i.title===title) {
                     alert("Book name already exists!");
-                    isDuplicate = true;
+                    copy=true;
                 }
             });
     
-            if (!isDuplicate) {                
+            if(!copy){                
                 catalog.push(book);
                 localStorage.setItem("catalog", JSON.stringify(catalog));
                 alert("Book added successfully!");
-                window.location.href = "lib.html";
+                window.location.href="lib.html";
             }
-    
             return false;
         }
     </script>

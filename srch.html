@@ -33,9 +33,21 @@
         .form-group h1 {
             font-size: 35px;
         }
+
+        .main h1 {
+            color: white;
+            font-size: 25px;
+            font: bold;
+            margin-left: 20px;
+            margin-top: 10px;
+            background-color: rgba(47, 46, 46, 0.88);
+            width: 250px;
+        }
+
         input[type="text"] {
             width: 300px;
         }
+
         .form-control {
             margin-left: 20px;
         }
@@ -44,6 +56,7 @@
             margin-left: 20px;
             margin-top: 10px;
         }
+
         .btn-success {
             margin-left: 20px;
             margin-top: 10px;
@@ -60,6 +73,7 @@
                 <select class="form-select" id="key" style="width: 300px;margin-left: 20px;" required>
                     <option value="title">Title</option>
                     <option value="author">Author</option>
+                    <option value="isbn">ISBN</option>
                     <option value="genre">Genre</option>
                 </select>
             </div>
@@ -68,11 +82,12 @@
                 <input type="text" class="form-control" id="searchTerm">
             </div>
             <br>
-            <button type="submit" class="btn btn-primary">Search</button>
-            <button type="button" class="btn btn-success" onclick="window.location.href='lib.html';">Home</button> <br> <br>
+            <button type="submit" class="btn btn-outline-warning">Search</button>
+            <button type="button" class="btn btn-outline-warning" onclick="window.location.href='lib.html';">Home</button>
+            <button type="button" class="btn btn-outline-warning" onclick="window.location.href='srch.html';">All Books</button> <br> <br>
         </form>
 
-        <table class="table">
+        <table class="table table-dark table-striped">
             <thead>
                 <tr>
                     <th>Title</th>
@@ -82,12 +97,73 @@
                     <th>Availability</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="res">
                 
             </tbody>
         </table>
     </div>
     <script>
+        function searchBooks() {
+            var key=document.getElementById("key").value;
+            var searchTerm=document.getElementById("searchTerm").value.toLowerCase();
+            var items=JSON.parse(localStorage.getItem("catalog")) || [];
+            var r=[];
+
+            for (let i=0;i<items.length;i++) {
+                if (items[i][key].toLowerCase().includes(searchTerm)) {
+                    r.push(items[i]);
+                }
+            }
+            disp(r);
+        }
+
+        function disp(r) {
+            var tableBody=document.getElementById("res");
+            tableBody.innerHTML="";
+            for (let i=0;i<r.length;i++) {
+                var row=tableBody.insertRow();
+                //var c1=row.insertCell(0);
+                //c1.innerHTML="HEHEHE";
+                var c1=row.insertCell(0);
+                var c2=row.insertCell(1);
+                var c3=row.insertCell(2);
+                var c4=row.insertCell(3);
+                var c5=row.insertCell(4);
+                c1.innerHTML=r[i].title;
+                c2.innerHTML=r[i].author;
+                c3.innerHTML=r[i].isbn;
+                c4.innerHTML=r[i].genre;
+                c5.innerHTML=r[i].availability === '1'?'Available':'Not Available';
+
+
+            }
+        }
+
+        window.onload=function(){
+            show();
+        };
+
+        function show(){
+            var items=JSON.parse(localStorage.getItem("catalog")) || [];
+            var tableBody=document.querySelector("table tbody");
+            tableBody.innerHTML="";
+
+            for (let i=0;i<items.length;i++){
+                var row = tableBody.insertRow();
+
+                var cell2=row.insertCell(0);
+                var cell3=row.insertCell(1);
+                var cell4=row.insertCell(2);
+                var cell5=row.insertCell(3);
+                var cell6=row.insertCell(4);
+
+                cell2.innerHTML=items[i].title;
+                cell3.innerHTML=items[i].author;
+                cell4.innerHTML=items[i].isbn;
+                cell5.innerHTML=items[i].genre;
+                cell6.innerHTML=items[i].availability === '1'?'Available':'Not Available';
+            }
+        }
     </script>
 </body>
 </html>
